@@ -16,7 +16,7 @@ define(["bacon","jq-console"], function(Bacon) {
     return fmt(value, "error"); 
   }
 
-  function init(consoleElement, roy) {
+  function init(consoleElement, jsEnv) {
     var history = new Bacon.Bus()
     var error = new Bacon.Bus()
     var skipHistory
@@ -28,37 +28,7 @@ define(["bacon","jq-console"], function(Bacon) {
     }
 
     function evalLine(line) {
-      var parts = line.split(" ");
-
-      switch (parts[0]) {
-      case ":t":
-        var term = parts[1]
-        var env = roy.royEnv(term)
-        if (env) {
-          return Bacon.once(fmtType(env));
-        } else {
-          return Bacon.once(fmtError(term + " is not defined."));
-        }
-
-      case ":c":
-        try {
-          var code = parts.slice(1).join(" ");
-          var compiled = roy.compileRoy(code)
-          return Bacon.once(fmt(compiled.output, "code"));
-        } catch(e) {
-          return Bacon.once(fmtError(e.toString()));
-        }
-      default:
-        if (line == ":roy") {
-          roy.eval = roy.evalRoy
-          return Bacon.once(fmtValue("Roy mode!"))
-        } else if (line == ":js") {
-          roy.eval = roy.evalJs
-          return Bacon.once(fmtValue("Javascript mode!"))
-        } else {
-          return evalUsing(line, roy.eval)
-        }
-      }
+      return evalUsing(line, jsEnv.eval)
     }
 
     function evalUsing(line, evalFunc) {
@@ -71,8 +41,12 @@ define(["bacon","jq-console"], function(Bacon) {
         }
         error.push("")
         if (evaled != undefined && evaled.result != null) {
-          return Bacon.once().flatMap(evaled.result)
-            .map(function(result) { return fmtValue(JSON.stringify(result))});
+          var observableResult = (evaled.result instanceof Bacon.Observable) ?
+            evaled.result :
+            Bacon.once(evaled.result)
+          return observableResult.map(function(value) {
+            return fmtValue(value)
+          })
         } else {
           return Bacon.never();
         }
@@ -93,11 +67,9 @@ define(["bacon","jq-console"], function(Bacon) {
     prompt()
     return {
       history: history,
-      paste: function(text) {
-        Bacon.sequentially(200, roy.splitRoy(text)).filter(nonEmpty).onValue(function(line) {
-          sendToConsole(fmtCommand(line))
-          evalLine(line).onValue(sendToConsole)
-        })
+      paste: function(line) {
+        sendToConsole(fmtCommand(line))
+        evalLine(line).onValue(sendToConsole)
       },
       error: error.toProperty(),
       skipHistory: function() {
@@ -119,6 +91,6 @@ define(["bacon","jq-console"], function(Bacon) {
   }
 
   return {
-    init: function(element, roy) { return init(element, roy) }
+    init: function(element, jsEnv) { return init(element, jsEnv) }
   }
 })

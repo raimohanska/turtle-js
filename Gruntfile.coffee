@@ -12,8 +12,7 @@ module.exports = (grunt) ->
           mainConfigFile: webDir + "/script/main.js",
           name: "main",
           out: outDir + "/turtleroy.js",
-          optimize: "none",
-          exclude: [ "roy" ]
+          optimize: "none"
         }
       }
     },

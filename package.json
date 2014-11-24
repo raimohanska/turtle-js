@@ -1,5 +1,5 @@
 {
-    "name": "turtle-roy",
+    "name": "turtle-js",
     "version": "0.0.0",
     "dependencies": {
         "express": "~3",

@@ -1,5 +1,5 @@
 define(["bacon.jquery"], function() {
-  return function Editor(root, royEnv, repl) {
+  return function Editor(root, jsEnv, repl) {
     var editorElement = root.find(".editor textarea")
     code = Bacon.$.textFieldValue(editorElement)
 
@@ -12,7 +12,7 @@ define(["bacon.jquery"], function() {
       .filter(function(e) { return e.ctrlKey && e.keyCode == 32})
       .doAction(".preventDefault")
     root.find(".run-link").asEventStream("click").merge(ctrlSpace).map(code).onValue(function(program) {
-      royEnv.eval(program)
+      jsEnv.eval(program)
     })
 
     return {
