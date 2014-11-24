@@ -20,6 +20,6 @@
         "node": "~0.10.0"
     },
     "scripts": {
-        "postinstall": "node_modules/bower/bin/bower install && node_modules/grunt-cli/bin/grunt build"
+        "postinstall": "node_modules/bower/bin/bower cache clean && node_modules/bower/bin/bower install && node_modules/grunt-cli/bin/grunt build"
     }
 }
