@@ -9,6 +9,7 @@ Try it online: [turtle-js.heroku.com/](http://turtle-js.heroku.com/)
 Command                     | Result
 ----------------------------|-------------------------------------------
 fd(100)                     | moves 100 pixels forward
+bk(100)                     | moves 100 pixels backward
 lt(45)                      | turns left 45 degrees
 rt(90)                      | turns right 90 degrees
 penup()                     | lifts the pen, no trace left when moving
@@ -23,6 +24,7 @@ whoami()                    | show the author name of the logged-in user (this i
 ls()                        | list your saved works
 bg("red")                   | change background color (red, rgb(255,0,0), #FF0000)
 color("red")                | change pen color (red, rgb(255,0,0), #FF0000)
+penwidth(4)                 | change pen width to 4 pixels
 text("HELLO")               | draw the text "HELLO" beside the turtle
 font("40px Arial")          | changes to the 40px Arial font
 font(100)                   | changes to the 100px Courier font
