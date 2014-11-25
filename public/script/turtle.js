@@ -99,6 +99,9 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
           drawTurtle()
         })
       },
+      bk: function(dist) {
+        return api.fd(-dist)
+      },
       lt: function(angle) {
         this.rt(-angle)
       },
