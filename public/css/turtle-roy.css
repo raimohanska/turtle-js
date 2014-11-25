@@ -226,6 +226,10 @@ input:focus {
   font-size: 0.95em;
 }
 
+.editor .line-error {
+  background: rgb(122, 47, 47);
+}
+
 .console {
   position: relative;
 }
