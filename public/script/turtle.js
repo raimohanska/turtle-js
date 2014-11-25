@@ -140,7 +140,7 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
         }
         image.src = "images/" + name + ".png"
       },
-      background: function(color) {
+      bg: function(color) {
         Smoothly.do(function() {
           setBackground(color)
         })()
