@@ -26,6 +26,7 @@ color("red")                | change pen color (red, rgb(255,0,0), #FF0000)
 text("HELLO")               | draw the text "HELLO" beside the turtle
 font("40px Arial")          | changes to the 40px Arial font
 font(100)                   | changes to the 100px Courier font
+speak("Ninja turtles")      | read loud the text (if sound is enabled)
 
 # Building and running
 
