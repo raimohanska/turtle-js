@@ -18,7 +18,7 @@ module.exports = (grunt) ->
     },
     watch: {
       js: {
-        files: [webDir + "/script/**"],
+        files: [webDir + "/script/**", webDir + "/lib/**"],
         tasks: 'requirejs'
       }
     }

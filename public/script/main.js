@@ -13,6 +13,7 @@ require.config({
     ,"handlebars": "../../bower_components/handlebars/handlebars.amd"
     ,"text": "../lib/text"
     ,"speak": "../speak.js/speakClient"
+    ,"parsestack": "../lib/parse-stack"
   },
   shim: {
     'jq-console': {
