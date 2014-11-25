@@ -122,6 +122,9 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
       spin: function(degrees, delay) {
         this.lt(360)
       },
+      penwidth: function(width) { Smoothly.do(function() {
+        paper.lineWidth = width
+      })()},
       setshape: function(name) {
         var image = new Image()
         image.onload = function() {
