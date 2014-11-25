@@ -28,6 +28,7 @@ penwidth(4)                 | change pen width to 4 pixels
 text("HELLO")               | draw the text "HELLO" beside the turtle
 font("40px Arial")          | changes to the 40px Arial font
 font(100)                   | changes to the 100px Courier font
+speak("Ninja turtles")      | read loud the text (if sound is enabled)
 
 # Building and running
 
