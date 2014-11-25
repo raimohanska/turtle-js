@@ -14,6 +14,7 @@
         "grunt-shell": "0.6.4",
         "mongodb": "~2.0",
         "baconjs": "~0.7",
+        "codemirror": "~4.7",
         "randomstring": "~1"
     },
     "engines": {

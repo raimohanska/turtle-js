@@ -2,16 +2,25 @@ define(["bacon.jquery", "parsestack"], function(bjq, parseStack) {
   return function Editor(root, jsEnv, repl) {
     var editorElement = root.find(".editor")
     var editorArea = editorElement.find("textarea")
-    code = Bacon.$.textFieldValue(editorArea)
+    codeMirror = CodeMirror.fromTextArea(editorArea.get(0), { 
+      lineNumbers: true,
+      mode: "javascript",
+      theme: "solarized dark"
+    })
+  
+    code = Bacon.fromEventTarget(codeMirror, "change")
+      .map(".getValue")
+      .toProperty(codeMirror.getValue())
 
     repl.history.onValue(function(line) {
-      editorArea.val(editorArea.val() ? editorArea.val() + "\n" + line : line)
-      editorArea.trigger("paste")
+      codeMirror.setValue(codeMirror.getValue() ? codeMirror.getValue() + "\n" + line : line)
     })
 
+    // TODO: ctrl-space handling
     var ctrlSpace = editorArea.asEventStream("keyup")
       .filter(function(e) { return e.ctrlKey && e.keyCode == 32})
       .doAction(".preventDefault")
+
     root.find(".run-link").asEventStream("click").merge(ctrlSpace).map(code).onValue(function(program) {
       clearError()
       try {
@@ -26,6 +35,9 @@ define(["bacon.jquery", "parsestack"], function(bjq, parseStack) {
 
     return {
       code: code,
+      refresh: function() {
+        codeMirror.refresh()
+      },
       reset: function() {
         editorArea.val("")
         editorArea.trigger("paste")

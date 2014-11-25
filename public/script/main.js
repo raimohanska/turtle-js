@@ -64,6 +64,7 @@ require(["lodash", "jquery", "jsenv", "jsrepl", "turtle", "turtlebundle", "edito
   element.find(".editor-link").asEventStream("click").onValue(function() {
     element.toggleClass("editor-mode")
     takeFocus()
+    editor.refresh()
   })
 
   $(window).resize(function() {
