@@ -39,9 +39,7 @@ define(["bacon.jquery", "parsestack"], function(bjq, parseStack) {
         codeMirror.refresh()
       },
       reset: function() {
-        editorArea.val("")
-        editorArea.trigger("paste")
-        clearError()
+        codeMirror.setValue("")
       }
     }
 
