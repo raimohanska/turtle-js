@@ -6,7 +6,7 @@ Education focused version of Turtle for Javascript
 
 Command                     | Result
 ----------------------------|-------------------------------------------
-fd(Number                   | moves (Number) pixels forward
+fd(Number)                  | moves (Number) pixels forward
 bk(Number)                  | moves (Number pixels backward
 lt(Number)                  | turns left (Number) degrees
 rt(Number)                  | turns right (Number) degrees
