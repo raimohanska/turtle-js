@@ -1,34 +1,24 @@
 # Turtle JS
 
-A Javascript port of Turtle Roy
-
-Try it online: [turtle-js.heroku.com/](http://turtle-js.heroku.com/)
+Education focused version of Turtle for Javascript
 
 # TurtleAPI
 
 Command                     | Result
 ----------------------------|-------------------------------------------
-fd(100)                     | moves 100 pixels forward
-bk(100)                     | moves 100 pixels backward
-lt(45)                      | turns left 45 degrees
-rt(90)                      | turns right 90 degrees
-penup()                     | lifts the pen, no trace left when moving
-pendown()                   | lowers the pen again for drawing
-setshape("rocket-large")    | changes the cursor. available (with and without -large): butterfly, car, fairy, formula, princess, rocket, turtle
-clear()                     | clear the paper and reset turtle to center
+fd(Number                   | moves (Number) pixels forward
+bk(Number)                  | moves (Number pixels backward
+lt(Number)                  | turns left (Number) degrees
+rt(Number)                  | turns right (Number) degrees
+pen(true/false/Number)      | lowers pen if 'true', lifts if 'false', changes width otherwise
 home()                      | reset the turtle to center
-login("raimo")              | login as "raimo" (this is the author name in your saved work)
-save("asdf")                | save current work as "asdf"
-open("asdf")                | open saved work "asdf" (presuming you've saved with this name and current author name)
-whoami()                    | show the author name of the logged-in user (this is just saved in a cookie)
-ls()                        | list your saved works
-bg("red")                   | change background color (red, rgb(255,0,0), #FF0000)
-color("red")                | change pen color (red, rgb(255,0,0), #FF0000)
-penwidth(4)                 | change pen width to 4 pixels
-text("HELLO")               | draw the text "HELLO" beside the turtle
-font("40px Arial")          | changes to the 40px Arial font
-font(100)                   | changes to the 100px Courier font
-speak("Ninja turtles")      | read loud the text (if sound is enabled)
+clear()                     | clear the paper
+reset()                     | resets the paper and the turtle to center
+bg(String/rgb/#000000)      | change background color (red, rgb(255,0,0), #FF0000)
+color(String/rgb/#000000)   | change pen color e.g. red, rgb(255,0,0), #FF0000
+text(String)                | draw the String beside the turtle
+font(String)                | changes font, e.g. "40px Arial" for 40px Arial font
+font(Number)                | changes to the (Number)px Courier font
 
 # Building and running
 
@@ -51,4 +41,5 @@ Optionally also start the mongo db
 
 # Credits
 
+Branched from original at github.com/raimohanska/turtle-js
 See origins of the cursor images from src/main/webapp/images/image-sources.txt
