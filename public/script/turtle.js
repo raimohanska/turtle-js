@@ -24,6 +24,18 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
     function fontWithSize(size) {
       return size + "px Courier"
     }
+    
+    function reset_paper() {
+      clearTurtle()
+      paper.setTransform(1, 0, 0, 1, 0, 0)
+      paper.clearRect(0, 0, w, h)
+      turtle.clearRect(0, 0, w, h)
+      paper.translate(xCenter(), yCenter())
+      setBackground("white")
+      paper.font=fontWithSize(20)
+      setColor("black")
+      drawTurtle()
+    }
 
     function init() {
       clearTurtle()
@@ -172,15 +184,21 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
           paper.font = font
         })()
       },
+      home: Smoothly.do(function() {
+        turtleToHome()
+      }),
       clear: function() {
+        recorder._recorder.reset()
+        Smoothly.do(function() {
+          reset_paper()
+        })()
+      },
+      reset: function() {
         recorder._recorder.reset()
         Smoothly.do(function() {
           init()
         })()
-      },
-      home: Smoothly.do(function() {
-        turtleToHome()
-      })
+      }
     }
     var recorder = Recorder(api)
     return recorder
