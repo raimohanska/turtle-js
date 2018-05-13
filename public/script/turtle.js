@@ -113,6 +113,15 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
           drawTurtle()
         })
       },
+      pen: function(width) { Smoothly.do(function() { // Can replace 
+        if (width === false) { // Truthy values used to replace pendown and penup
+          pendown = false;
+        } else if (width === true) { // Pen is being set down
+          pendown = true;
+        } else { // Pen width is being changed
+          paper.lineWidth = Number(width);
+        }
+      })()},
       pendown: Smoothly.do(function() {
         pendown = true
       }),
