@@ -19,6 +19,7 @@ color(String/rgb/#000000)   | change pen color e.g. red, rgb(255,0,0), #FF0000
 text(String)                | draw the String beside the turtle
 font(String)                | changes font, e.g. "40px Arial" for 40px Arial font
 font(Number)                | changes to the (Number)px Courier font
+speak(string)               | read String aloud, e.g. "Ninja turtles"
 
 # Building and running
 
