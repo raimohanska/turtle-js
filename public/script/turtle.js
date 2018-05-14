@@ -23,21 +23,33 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
 
     function fontWithSize(size) {
       return size + "px Courier"
-    }
-    
-    function reset_paper() {
+    }    
+    function clearPaper() {
       clearTurtle()
+      paper.save()
+      turtle.save()
       paper.setTransform(1, 0, 0, 1, 0, 0)
+      turtle.setTransform(1, 0, 0, 1, 0, 0)
       paper.clearRect(0, 0, w, h)
       turtle.clearRect(0, 0, w, h)
       paper.translate(xCenter(), yCenter())
+      turtle.translate(xCenter(), yCenter())
+      paper.restore()
+      turtle.restore()
       setBackground("white")
       paper.font=fontWithSize(20)
       setColor("black")
       drawTurtle()
     }
-
-    function init() {
+    function turtleToHome() {
+      clearTurtle()
+      paper.setTransform(1, 0, 0, 1, 0, 0)
+      turtle.setTransform(1, 0, 0, 1, 0, 0)
+      paper.translate(xCenter(), yCenter());
+      turtle.translate(xCenter(), yCenter());
+      drawTurtle()
+    }
+    function init() { // resetPaper plus turtleToHome()
       clearTurtle()
       paper.setTransform(1, 0, 0, 1, 0, 0)
       turtle.setTransform(1, 0, 0, 1, 0, 0)
@@ -52,14 +64,6 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
     }
     function setBackground(color) {
       element.css("background-color", color);
-    }
-    function turtleToHome() {
-      clearTurtle()
-      paper.setTransform(1, 0, 0, 1, 0, 0)
-      turtle.setTransform(1, 0, 0, 1, 0, 0)
-      paper.translate(xCenter(), yCenter());
-      turtle.translate(xCenter(), yCenter());
-      drawTurtle()
     }
     function createCanvas(zIndex) {
       var canvas = $("<canvas></canvas>")
@@ -188,9 +192,9 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
         turtleToHome()
       }),
       clear: function() {
-        recorder._recorder.reset()
+        //recorder._recorder.reset()
         Smoothly.do(function() {
-          reset_paper()
+          clearPaper()
         })()
       },
       reset: function() {
