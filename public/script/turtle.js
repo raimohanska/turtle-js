@@ -23,9 +23,33 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
 
     function fontWithSize(size) {
       return size + "px Courier"
+    }    
+    function clearPaper() {
+      clearTurtle()
+      paper.save()
+      turtle.save()
+      paper.setTransform(1, 0, 0, 1, 0, 0)
+      turtle.setTransform(1, 0, 0, 1, 0, 0)
+      paper.clearRect(0, 0, w, h)
+      turtle.clearRect(0, 0, w, h)
+      paper.translate(xCenter(), yCenter())
+      turtle.translate(xCenter(), yCenter())
+      paper.restore()
+      turtle.restore()
+      setBackground("white")
+      paper.font=fontWithSize(20)
+      setColor("black")
+      drawTurtle()
     }
-
-    function init() {
+    function turtleToHome() {
+      clearTurtle()
+      paper.setTransform(1, 0, 0, 1, 0, 0)
+      turtle.setTransform(1, 0, 0, 1, 0, 0)
+      paper.translate(xCenter(), yCenter());
+      turtle.translate(xCenter(), yCenter());
+      drawTurtle()
+    }
+    function init() { // resetPaper plus turtleToHome()
       clearTurtle()
       paper.setTransform(1, 0, 0, 1, 0, 0)
       turtle.setTransform(1, 0, 0, 1, 0, 0)
@@ -40,14 +64,6 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
     }
     function setBackground(color) {
       element.css("background-color", color);
-    }
-    function turtleToHome() {
-      clearTurtle()
-      paper.setTransform(1, 0, 0, 1, 0, 0)
-      turtle.setTransform(1, 0, 0, 1, 0, 0)
-      paper.translate(xCenter(), yCenter());
-      turtle.translate(xCenter(), yCenter());
-      drawTurtle()
     }
     function createCanvas(zIndex) {
       var canvas = $("<canvas></canvas>")
@@ -125,6 +141,15 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
       penwidth: function(width) { Smoothly.do(function() {
         paper.lineWidth = width
       })()},
+      pen: function(width) { Smoothly.do(function() {
+        if (width === false) { // Truthy values used to replace pendown and penup
+          pendown = false;
+        } else if (width === true) { // Pen is being set down
+          pendown = true;
+        } else { // Pen width is being changed
+          paper.lineWidth = Number(width);
+        }
+      })()},
       setshape: function(name) {
         var image = new Image()
         image.onload = function() {
@@ -163,15 +188,21 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
           paper.font = font
         })()
       },
+      home: Smoothly.do(function() {
+        turtleToHome()
+      }),
       clear: function() {
+        //recorder._recorder.reset()
+        Smoothly.do(function() {
+          clearPaper()
+        })()
+      },
+      reset: function() {
         recorder._recorder.reset()
         Smoothly.do(function() {
           init()
         })()
-      },
-      home: Smoothly.do(function() {
-        turtleToHome()
-      })
+      }
     }
     var recorder = Recorder(api)
     return recorder
